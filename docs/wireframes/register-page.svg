@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1440" height="900" fill="#F5F5F5"/>
+
+  <!-- Main Container -->
+  <g id="register-container">
+    <!-- Card Background -->
+    <rect x="520" y="120" width="400" height="660" rx="16" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.08"/>
+    </filter>
+    <rect x="520" y="120" width="400" height="660" rx="16" fill="white" filter="url(#shadow)"/>
+
+    <!-- Logo Icon -->
+    <circle cx="720" cy="180" r="24" fill="#00C73C"/>
+    <text x="720" y="188" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">W</text>
+
+    <!-- Title -->
+    <text x="720" y="230" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="600" fill="#212121" text-anchor="middle">WHS-TodoList</text>
+
+    <!-- Subtitle -->
+    <text x="720" y="255" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#757575" text-anchor="middle">새 계정 만들기</text>
+
+    <!-- Email Input -->
+    <g id="email-input">
+      <text x="550" y="300" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#424242">이메일</text>
+      <rect x="550" y="310" width="340" height="48" rx="8" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+      <text x="566" y="338" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#BDBDBD">📧 이메일을 입력하세요</text>
+    </g>
+
+    <!-- Username Input -->
+    <g id="username-input">
+      <text x="550" y="385" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#424242">사용자 이름</text>
+      <rect x="550" y="395" width="340" height="48" rx="8" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+      <text x="566" y="423" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#BDBDBD">👤 사용자 이름을 입력하세요</text>
+    </g>
+
+    <!-- Password Input -->
+    <g id="password-input">
+      <text x="550" y="470" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#424242">비밀번호</text>
+      <rect x="550" y="480" width="340" height="48" rx="8" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+      <text x="566" y="508" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#BDBDBD">🔒 비밀번호를 입력하세요</text>
+      <!-- Eye Icon -->
+      <text x="860" y="508" font-size="16" fill="#757575">👁️</text>
+      <!-- Hint Text -->
+      <text x="550" y="543" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#757575">최소 8자 이상</text>
+    </g>
+
+    <!-- Password Confirm Input -->
+    <g id="password-confirm-input">
+      <text x="550" y="570" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#424242">비밀번호 확인</text>
+      <rect x="550" y="580" width="340" height="48" rx="8" fill="white" stroke="#E0E0E0" stroke-width="1"/>
+      <text x="566" y="608" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#BDBDBD">🔒 비밀번호를 다시 입력하세요</text>
+      <!-- Eye Icon -->
+      <text x="860" y="608" font-size="16" fill="#757575">👁️</text>
+    </g>
+
+    <!-- Register Button -->
+    <g id="register-button">
+      <rect x="550" y="660" width="340" height="48" rx="8" fill="#00C73C"/>
+      <text x="720" y="688" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" font-weight="500" fill="white" text-anchor="middle">회원가입</text>
+    </g>
+
+    <!-- Login Link -->
+    <g id="login-link">
+      <text x="720" y="738" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#757575" text-anchor="middle">이미 계정이 있으신가요?</text>
+      <text x="720" y="758" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="500" fill="#00C73C" text-anchor="middle" text-decoration="underline" cursor="pointer">로그인</text>
+    </g>
+  </g>
+
+  <!-- Annotations (Optional - for design review) -->
+  <g id="annotations" opacity="0.5">
+    <!-- Card dimensions -->
+    <line x1="920" y1="120" x2="960" y2="120" stroke="#FF7043" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="960" y1="120" x2="960" y2="780" stroke="#FF7043" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="920" y1="780" x2="960" y2="780" stroke="#FF7043" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="970" y="450" font-family="monospace" font-size="11" fill="#FF7043">660px height</text>
+
+    <!-- Button height -->
+    <line x1="480" y1="660" x2="520" y2="660" stroke="#2196F3" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="520" y1="660" x2="520" y2="708" stroke="#2196F3" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="480" y1="708" x2="520" y2="708" stroke="#2196F3" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="430" y="688" font-family="monospace" font-size="11" fill="#2196F3">48px</text>
+
+    <!-- Input height -->
+    <line x1="480" y1="310" x2="520" y2="310" stroke="#2196F3" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="520" y1="310" x2="520" y2="358" stroke="#2196F3" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="480" y1="358" x2="520" y2="358" stroke="#2196F3" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="430" y="338" font-family="monospace" font-size="11" fill="#2196F3">48px</text>
+
+    <!-- Card width -->
+    <line x1="520" y1="90" x2="520" y2="110" stroke="#FF7043" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="520" y1="100" x2="920" y2="100" stroke="#FF7043" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="920" y1="90" x2="920" y2="110" stroke="#FF7043" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="680" y="90" font-family="monospace" font-size="11" fill="#FF7043" text-anchor="middle">400px width</text>
+  </g>
+
+  <!-- Design Specs Panel -->
+  <g id="specs-panel">
+    <rect x="50" y="50" width="250" height="300" rx="8" fill="white" stroke="#E0E0E0" stroke-width="1" opacity="0.95"/>
+
+    <text x="70" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="600" fill="#212121">회원가입 페이지 스펙</text>
+
+    <text x="70" y="110" font-family="monospace" font-size="11" fill="#757575">색상:</text>
+    <rect x="70" y="115" width="16" height="16" fill="#00C73C"/>
+    <text x="92" y="127" font-family="monospace" font-size="10" fill="#424242">Primary: #00C73C</text>
+
+    <rect x="70" y="135" width="16" height="16" fill="#00A832"/>
+    <text x="92" y="147" font-family="monospace" font-size="10" fill="#424242">Hover: #00A832</text>
+
+    <rect x="70" y="155" width="16" height="16" fill="#E0E0E0"/>
+    <text x="92" y="167" font-family="monospace" font-size="10" fill="#424242">Border: #E0E0E0</text>
+
+    <text x="70" y="195" font-family="monospace" font-size="11" fill="#757575">크기:</text>
+    <text x="70" y="215" font-family="monospace" font-size="10" fill="#424242">• 카드: 400 x 660px</text>
+    <text x="70" y="230" font-family="monospace" font-size="10" fill="#424242">• 입력 필드: 340 x 48px</text>
+    <text x="70" y="245" font-family="monospace" font-size="10" fill="#424242">• 버튼: 340 x 48px</text>
+    <text x="70" y="260" font-family="monospace" font-size="10" fill="#424242">• Border Radius: 8px</text>
+
+    <text x="70" y="285" font-family="monospace" font-size="11" fill="#757575">타이포그래피:</text>
+    <text x="70" y="305" font-family="monospace" font-size="10" fill="#424242">• 제목: 24px, 600</text>
+    <text x="70" y="320" font-family="monospace" font-size="10" fill="#424242">• 레이블: 14px, 400</text>
+    <text x="70" y="335" font-family="monospace" font-size="10" fill="#424242">• 버튼: 16px, 500</text>
+  </g>
+
+  <!-- Device Frame (Optional) -->
+  <g id="device-frame" opacity="0.3">
+    <rect x="40" y="40" width="1360" height="820" rx="20" fill="none" stroke="#BDBDBD" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="720" y="870" font-family="monospace" font-size="12" fill="#BDBDBD" text-anchor="middle">Desktop View (1440 x 900)</text>
+  </g>
+</svg>

@@ -7,9 +7,18 @@ const { pool } = require('../config/database');
  * @returns {Promise<Array>} 국경일 목록
  */
 const getHolidays = async (year, month) => {
-  let query = 'SELECT * FROM holidays WHERE ';
+  let query = `
+    SELECT
+      holiday_id,
+      title as "dateName",
+      TO_CHAR(date, 'YYYYMMDD') as locdate,
+      description,
+      is_recurring,
+      created_at,
+      updated_at
+    FROM holidays WHERE `;
   const params = [];
-  
+
   if (month) {
     // 특정 연도와 월의 국경일 조회
     query += 'EXTRACT(YEAR FROM date) = $1 AND EXTRACT(MONTH FROM date) = $2';
@@ -19,9 +28,9 @@ const getHolidays = async (year, month) => {
     query += 'EXTRACT(YEAR FROM date) = $1';
     params.push(year);
   }
-  
+
   query += ' ORDER BY date';
-  
+
   const result = await pool.query(query, params);
   return result.rows;
 };

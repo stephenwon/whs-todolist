@@ -59,6 +59,16 @@ const getTodoById = async (req, res) => {
       });
     }
 
+    if (error.code === 'FORBIDDEN' || error.message === '이 할일에 접근할 권한이 없습니다') {
+      return res.status(403).json({
+        success: false,
+        error: {
+          code: 'FORBIDDEN',
+          message: error.message
+        }
+      });
+    }
+
     res.status(500).json({
       success: false,
       error: {
@@ -170,7 +180,7 @@ const updateTodo = async (req, res) => {
       data: todo
     });
   } catch (error) {
-    if (error.message === '할일을 찾을 수 없거나 권한이 없습니다') {
+    if (error.message === '할일을 찾을 수 없습니다') {
       return res.status(404).json({
         success: false,
         error: {
@@ -179,7 +189,17 @@ const updateTodo = async (req, res) => {
         }
       });
     }
-    
+
+    if (error.code === 'FORBIDDEN' || error.message === '이 할일에 접근할 권한이 없습니다') {
+      return res.status(403).json({
+        success: false,
+        error: {
+          code: 'FORBIDDEN',
+          message: error.message
+        }
+      });
+    }
+
     if (error.message === '만료일은 시작일 이후여야 합니다') {
       return res.status(400).json({
         success: false,
@@ -212,13 +232,29 @@ const completeTodo = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      data: {
-        todoId: todo.todo_id,
-        status: todo.status,
-        isCompleted: todo.is_completed
-      }
+      data: todo
     });
   } catch (error) {
+    if (error.message === '할일을 찾을 수 없습니다') {
+      return res.status(404).json({
+        success: false,
+        error: {
+          code: 'TODO_NOT_FOUND',
+          message: error.message
+        }
+      });
+    }
+
+    if (error.code === 'FORBIDDEN' || error.message === '이 할일에 접근할 권한이 없습니다') {
+      return res.status(403).json({
+        success: false,
+        error: {
+          code: 'FORBIDDEN',
+          message: error.message
+        }
+      });
+    }
+
     if (error.message === '할일을 찾을 수 없거나 이미 삭제된 할일입니다') {
       return res.status(404).json({
         success: false,
@@ -259,6 +295,26 @@ const deleteTodo = async (req, res) => {
       }
     });
   } catch (error) {
+    if (error.message === '할일을 찾을 수 없습니다') {
+      return res.status(404).json({
+        success: false,
+        error: {
+          code: 'TODO_NOT_FOUND',
+          message: error.message
+        }
+      });
+    }
+
+    if (error.code === 'FORBIDDEN' || error.message === '이 할일에 접근할 권한이 없습니다') {
+      return res.status(403).json({
+        success: false,
+        error: {
+          code: 'FORBIDDEN',
+          message: error.message
+        }
+      });
+    }
+
     if (error.message === '할일을 찾을 수 없거나 이미 삭제된 할일입니다') {
       return res.status(404).json({
         success: false,
@@ -299,6 +355,26 @@ const restoreTodo = async (req, res) => {
       }
     });
   } catch (error) {
+    if (error.message === '할일을 찾을 수 없습니다') {
+      return res.status(404).json({
+        success: false,
+        error: {
+          code: 'TODO_NOT_FOUND',
+          message: error.message
+        }
+      });
+    }
+
+    if (error.code === 'FORBIDDEN' || error.message === '이 할일에 접근할 권한이 없습니다') {
+      return res.status(403).json({
+        success: false,
+        error: {
+          code: 'FORBIDDEN',
+          message: error.message
+        }
+      });
+    }
+
     if (error.message === '할일을 찾을 수 없거나 복원할 수 없는 상태입니다') {
       return res.status(404).json({
         success: false,

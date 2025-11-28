@@ -47,16 +47,26 @@ const getTodos = async (userId, filters = {}) => {
  * @returns {Promise<Object>} 할일 정보
  */
 const getTodoById = async (todoId, userId) => {
-  const result = await pool.query(
-    'SELECT * FROM todos WHERE todo_id = $1 AND user_id = $2',
-    [todoId, userId]
+  // 먼저 할일이 존재하는지 확인
+  const existResult = await pool.query(
+    'SELECT * FROM todos WHERE todo_id = $1',
+    [todoId]
   );
 
-  if (result.rows.length === 0) {
+  if (existResult.rows.length === 0) {
     throw new Error('할일을 찾을 수 없습니다');
   }
 
-  return result.rows[0];
+  const todo = existResult.rows[0];
+
+  // 권한 체크
+  if (todo.user_id !== userId) {
+    const error = new Error('이 할일에 접근할 권한이 없습니다');
+    error.code = 'FORBIDDEN';
+    throw error;
+  }
+
+  return todo;
 };
 
 /**
@@ -99,46 +109,58 @@ const updateTodo = async (todoId, userId, updateData) => {
   // 현재 할일 조회
   const currentTodo = await getTodoById(todoId, userId);
 
-  // 업데이트할 데이터 준비
-  const { title, content, startDate, dueDate } = updateData;
+  // 업데이트할 필드만 동적으로 쿼리 생성
+  const fields = [];
+  const values = [];
+  let paramIndex = 1;
 
   // 날짜 검증
-  if ((startDate || dueDate) && 
-      (startDate && dueDate && new Date(dueDate) < new Date(startDate))) {
+  const startDate = updateData.startDate !== undefined ? updateData.startDate : currentTodo.start_date;
+  const dueDate = updateData.dueDate !== undefined ? updateData.dueDate : currentTodo.due_date;
+
+  if (startDate && dueDate && new Date(dueDate) < new Date(startDate)) {
     throw new Error('만료일은 시작일 이후여야 합니다');
   }
 
-  // 쿼리 생성
-  const fields = [];
-  const values = [];
-  let paramIndex = 3;
-
-  if (title !== undefined) {
+  // 업데이트할 필드 추가
+  if (updateData.title !== undefined) {
     fields.push(`title = $${paramIndex}`);
-    values.push(title);
+    values.push(updateData.title);
     paramIndex++;
   }
-  if (content !== undefined) {
+  if (updateData.content !== undefined) {
     fields.push(`content = $${paramIndex}`);
-    values.push(content);
+    values.push(updateData.content);
     paramIndex++;
   }
-  if (startDate !== undefined) {
+  if (updateData.startDate !== undefined) {
     fields.push(`start_date = $${paramIndex}`);
-    values.push(startDate);
+    values.push(updateData.startDate);
     paramIndex++;
   }
-  if (dueDate !== undefined) {
+  if (updateData.dueDate !== undefined) {
     fields.push(`due_date = $${paramIndex}`);
-    values.push(dueDate);
+    values.push(updateData.dueDate);
     paramIndex++;
   }
 
-  // 최종 업데이트 시간 업데이트
+  // 변경 사항이 없으면 현재 할일 반환
+  if (fields.length === 0) {
+    return currentTodo;
+  }
+
+  // 최종 업데이트 시간 추가
   fields.push(`updated_at = CURRENT_TIMESTAMP`);
+
+  // WHERE 조건을 위한 파라미터 추가
   values.push(todoId, userId);
 
-  const query = `UPDATE todos SET ${fields.join(', ')} WHERE todo_id = $${paramIndex - 1} AND user_id = $${paramIndex} RETURNING *`;
+  const query = `
+    UPDATE todos
+    SET ${fields.join(', ')}
+    WHERE todo_id = $${paramIndex} AND user_id = $${paramIndex + 1}
+    RETURNING *`;
+
   const result = await pool.query(query, values);
 
   if (result.rows.length === 0) {

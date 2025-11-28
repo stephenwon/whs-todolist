@@ -39,11 +39,34 @@ const permanentlyDelete = async (req, res) => {
       message: '할일이 영구적으로 삭제되었습니다'
     });
   } catch (error) {
-    if (error.message === '할일을 찾을 수 없거나 영구 삭제할 수 없는 상태입니다') {
+    // 404: 할일을 찾을 수 없음
+    if (error.message === '할일을 찾을 수 없습니다') {
       return res.status(404).json({
         success: false,
         error: {
           code: 'TODO_NOT_FOUND',
+          message: error.message
+        }
+      });
+    }
+
+    // 403: 권한 없음
+    if (error.code === 'FORBIDDEN' || error.message === '이 할일에 접근할 권한이 없습니다') {
+      return res.status(403).json({
+        success: false,
+        error: {
+          code: 'FORBIDDEN',
+          message: error.message
+        }
+      });
+    }
+
+    // 400: 활성 상태의 할일은 영구 삭제 불가
+    if (error.message === '활성 상태의 할일은 영구 삭제할 수 없습니다') {
+      return res.status(400).json({
+        success: false,
+        error: {
+          code: 'BAD_REQUEST',
           message: error.message
         }
       });

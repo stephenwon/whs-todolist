@@ -40,7 +40,7 @@ const updateProfile = async (userId, updateData) => {
   const { username, password } = updateData;
   const fields = [];
   const values = [];
-  let paramIndex = 2;
+  let paramIndex = 1;
 
   if (username !== undefined) {
     // 사용자 이름 중복 체크

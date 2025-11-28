@@ -1,6 +1,6 @@
 # 데이터베이스 연결 설정 테스트 가이드
 
-## 빠른 시작 (Quick Start)
+## 빠른 시작 (Quick Start!!!)
 
 ### 테스트 실행
 
@@ -11,6 +11,7 @@ bash test-database.sh
 ```
 
 **예상 결과**: 모든 테스트 통과 시 최종 메시지
+
 ```
 ✅ 모든 테스트 통과! 데이터베이스 연결 설정이 완벽합니다.
 성공률: 100%
@@ -39,16 +40,18 @@ backend/
 ### 1. database.js 파일 검증 (8개 테스트 케이스)
 
 #### 테스트 1-2: 파일 및 모듈 임포트
+
 - ✅ database.js 파일 존재 확인
 - ✅ pg 모듈 임포트 확인
 - ✅ Pool 클래스 구조 분해 확인
 
 ```javascript
 // 검증 대상
-const { Pool } = require('pg');
+const { Pool } = require("pg");
 ```
 
 #### 테스트 3: Connection Pool 인스턴스
+
 - ✅ Pool 인스턴스 생성 확인
 - ✅ DATABASE_URL 환경변수 사용 확인
 
@@ -61,6 +64,7 @@ const pool = new Pool({
 ```
 
 #### 테스트 4-5: Pool 설정값
+
 - ✅ **max: 10** - 최대 동시 연결 수
 - ✅ **idleTimeoutMillis: 30000** - 유휴 연결 타임아웃 (30초)
 
@@ -74,19 +78,22 @@ const pool = new Pool({
 ```
 
 #### 테스트 6: 추가 설정
+
 - ✅ connectionTimeoutMillis 설정 확인
 
 #### 테스트 7: 에러 핸들링
+
 - ✅ pool.on('error', ...) 핸들러 확인
 
 ```javascript
 // 검증 대상
-pool.on('error', (err) => {
-  console.error('❌ Unexpected error on idle client', err);
+pool.on("error", (err) => {
+  console.error("❌ Unexpected error on idle client", err);
 });
 ```
 
 #### 테스트 8-9: 핵심 함수
+
 - ✅ testConnection 함수 존재 확인
   - pool.connect() 호출 확인
   - SELECT NOW() 쿼리 실행 확인
@@ -94,6 +101,7 @@ pool.on('error', (err) => {
   - pool.end() 호출 확인
 
 #### 테스트 10: 모듈 내보내기
+
 - ✅ module.exports 확인
 - ✅ pool, testConnection, closePool 모두 내보내기 확인
 
@@ -111,17 +119,20 @@ module.exports = {
 ### 2. server.js 통합 검증 (5개 테스트 케이스)
 
 #### 테스트 13: 파일 존재
+
 - ✅ server.js 파일 존재 확인
 
 #### 테스트 14: Database 모듈 임포트
+
 - ✅ ./config/database 모듈 임포트 확인
 
 ```javascript
 // 검증 대상
-const { testConnection, closePool } = require('./config/database');
+const { testConnection, closePool } = require("./config/database");
 ```
 
 #### 테스트 15: testConnection 호출
+
 - ✅ testConnection 함수 추출 확인
 - ✅ await testConnection() 호출 확인
 
@@ -134,12 +145,13 @@ if (!isConnected) {
 ```
 
 #### 테스트 16: closePool 호출
+
 - ✅ closePool 함수 추출 확인
 - ✅ await closePool() 호출 확인 (SIGTERM/SIGINT 핸들러)
 
 ```javascript
 // 검증 대상
-process.on('SIGTERM', async () => {
+process.on("SIGTERM", async () => {
   server.close(async () => {
     await closePool();
     process.exit(0);
@@ -148,12 +160,13 @@ process.on('SIGTERM', async () => {
 ```
 
 #### 테스트 20: dotenv 설정
+
 - ✅ require('dotenv') 확인
 - ✅ .config() 호출 확인
 
 ```javascript
 // 검증 대상
-require('dotenv').config();
+require("dotenv").config();
 ```
 
 ---
@@ -161,6 +174,7 @@ require('dotenv').config();
 ### 3. 환경변수 검증 (2개 테스트 케이스)
 
 #### 테스트 11-12: .env 파일
+
 - ✅ .env 파일 존재 확인
 - ✅ DATABASE_URL 환경변수 설정 확인
 
@@ -170,6 +184,7 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
 ```
 
 #### 테스트 17: 필수 환경변수
+
 - ✅ DATABASE_URL
 - ✅ JWT_SECRET
 - ✅ PORT
@@ -180,9 +195,11 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
 ### 4. 코드 품질 검증 (2개 테스트 케이스)
 
 #### 테스트 18: database.js 문법
+
 - ✅ Node.js 문법 검사 (node -c 옵션 사용)
 
 #### 테스트 19: server.js 문법
+
 - ✅ Node.js 문법 검사 (node -c 옵션 사용)
 
 ---
@@ -194,6 +211,7 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
 ```
 ✅ PASS: 메시지
 ```
+
 - 해당 검증 항목이 성공함
 - 코드가 올바르게 구현됨
 
@@ -202,6 +220,7 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
 ```
 ❌ FAIL: 메시지
 ```
+
 - 해당 검증 항목이 실패함
 - 코드를 수정해야 함
 
@@ -210,6 +229,7 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
 ```
    ℹ️  정보 메시지
 ```
+
 - 추가 정보 제공
 - 발견된 설정값 표시
 - 파일 경로 확인
@@ -221,11 +241,13 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
 ### Q1: 테스트가 실패하면?
 
 **상황**: DATABASE_URL을 찾을 수 없다는 오류
+
 ```
 ❌ FAIL: DATABASE_URL을 .env에서 찾을 수 없습니다
 ```
 
 **해결 방법**:
+
 1. .env 파일이 backend 디렉토리에 있는지 확인
 2. DATABASE_URL=... 라인이 있는지 확인
 3. 타이핑 오류 확인 (DATABASE_URL 정확히)
@@ -233,11 +255,13 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
 ### Q2: 문법 검사 실패?
 
 **상황**: database.js 문법 오류
+
 ```
 ❌ FAIL: database.js 파일에 문법 오류가 있습니다
 ```
 
 **해결 방법**:
+
 1. Node.js 설치 확인: `node --version`
 2. database.js 파일 검사
 3. 괄호, 따옴표 짝 맞는지 확인
@@ -246,12 +270,14 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
 ### Q3: 테스트를 수정하려면?
 
 **새로운 검증 추가**:
+
 1. test-database.sh 파일 열기
 2. 테스트 케이스 함수 추가
 3. 메인 테스트 실행 섹션에서 함수 호출 추가
 4. 테스트 실행해서 확인
 
 **예제**:
+
 ```bash
 # 새로운 테스트 함수 추가
 test_21_new_check() {
@@ -293,6 +319,7 @@ bash backend/test-database.sh
 ```
 
 또는 Git Bash를 사용:
+
 ```bash
 # Git Bash 열기
 # 일반 bash 명령어 사용
@@ -344,7 +371,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: "18"
       - name: Install dependencies
         run: cd backend && npm install
       - name: Run database tests
@@ -377,13 +404,13 @@ database_test:
 
 ### 커버리지 지표
 
-| 항목 | 테스트 수 | 통과 | 실패 |
-|---|---|---|---|
-| 파일 존재 | 3 | 3 | 0 |
-| 코드 구조 | 17 | 17 | 0 |
-| 환경변수 | 9 | 9 | 0 |
-| 문법 검사 | 2 | 2 | 0 |
-| **합계** | **31** | **31** | **0** |
+| 항목      | 테스트 수 | 통과   | 실패  |
+| --------- | --------- | ------ | ----- |
+| 파일 존재 | 3         | 3      | 0     |
+| 코드 구조 | 17        | 17     | 0     |
+| 환경변수  | 9         | 9      | 0     |
+| 문법 검사 | 2         | 2      | 0     |
+| **합계**  | **31**    | **31** | **0** |
 
 ---
 
@@ -396,6 +423,7 @@ bash: ./test-database.sh: Permission denied
 ```
 
 **해결**:
+
 ```bash
 chmod +x test-database.sh
 bash test-database.sh
@@ -408,6 +436,7 @@ bash test-database.sh
 ```
 
 **확인**:
+
 1. 현재 디렉토리 확인: `pwd`
 2. backend 디렉토리에 있는지 확인
 3. src/config/database.js 파일 존재 확인: `ls src/config/database.js`
@@ -419,6 +448,7 @@ bash test-database.sh
 ```
 
 **확인**:
+
 1. .env 파일 존재: `ls -la .env`
 2. DATABASE_URL 라인 확인: `grep DATABASE_URL .env`
 3. 스페이스/탭 문제 확인
@@ -428,12 +458,14 @@ bash test-database.sh
 ## 추가 리소스
 
 ### 관련 파일
+
 - 상세 리포트: `DATABASE-TEST-REPORT.md`
 - 테스트 스크립트: `test-database.sh`
 - 설정 파일: `src/config/database.js`
 - 서버 파일: `src/server.js`
 
 ### 참고 문서
+
 - PostgreSQL pg npm: https://www.npmjs.com/package/pg
 - dotenv: https://www.npmjs.com/package/dotenv
 - Node.js 문법 검사: `node -c`
